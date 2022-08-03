@@ -1,0 +1,10 @@
+img {
+  width: 220px;
+  height: 200px;
+  margin: 15px;
+  border-width: 5px;
+}
+
+img:hover {
+  box-shadow: 10px 10px 8px #888888;
+}

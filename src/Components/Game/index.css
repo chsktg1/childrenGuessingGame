@@ -1,0 +1,27 @@
+.image-holder {
+  text-align: center;
+}
+.tabs-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+p {
+  margin: 15px;
+}
+
+.active-tab {
+  text-decoration: underline;
+  color: gold;
+  font-weight: bold;
+}
+
+.random-image {
+  width: 400px;
+}
+
+.random-image-holder {
+  display: flex;
+  justify-content: center;
+}
