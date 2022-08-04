@@ -250,7 +250,18 @@ const imagesList = [
 ];
 
 class Game extends Component {
-  state = { activeTab: "FRUIT" };
+  state = {
+    activeTab: "FRUIT",
+    isTheGuessCorrect: false,
+    isSet: false,
+    score: 0,
+    time: 30,
+  };
+
+  componentDidMount() {
+    let x = Math.floor(Math.random() * imagesList.length);
+    this.setState({ isSet: true, randomImage: x });
+  }
 
   activeImages = () => {
     const { activeTab } = this.state;
@@ -265,23 +276,55 @@ class Game extends Component {
   };
 
   randomImage = () => {
-    let x = Math.floor(Math.random() * imagesList.length);
-    console.log(x);
+    const { randomImage } = this.state;
     return (
       <div className="random-image-holder">
-        <img className="random-image" src={imagesList[x]["imageUrl"]} alt="" />
+        <img
+          className="random-image"
+          src={imagesList[randomImage]["imageUrl"]}
+          alt=""
+        />
       </div>
     );
-    // return "";
+  };
+
+  userTried = (a) => {
+    const { randomImage, score } = this.state;
+    var newScore = score;
+    if (a === imagesList[randomImage].id) {
+      let x = Math.floor(Math.random() * imagesList.length);
+      newScore = newScore + 1;
+      this.setState({ randomImage: x, score: newScore });
+    }
+  };
+
+  timer = () => {
+    var { time } = this.state;
+    if (time !== 0) {
+      console.log("ewew");
+      time = time - 1;
+      this.setState({ time });
+    } else {
+      console.log("heee");
+      clearTimeout(this.alpha);
+    }
   };
 
   render() {
-    const { activeTab } = this.state;
+    const { activeTab, isSet, score, time } = this.state;
     var imagesToShow = this.activeImages();
-    console.log(imagesToShow);
+
+    {
+      this.alpha = setTimeout(this.timer, 1000);
+    }
+
     return (
       <>
-        {this.randomImage()}
+        <div>
+          <h1>Score :{score}</h1>
+          <p>Time Left: {time}</p>
+        </div>
+        {isSet && this.randomImage()}
         <div className="tabs-container">
           <p
             className={activeTab === "FRUIT" ? "active-tab" : null}
@@ -304,7 +347,7 @@ class Game extends Component {
         </div>
         <div className="image-holder">
           {imagesToShow.map((e) => (
-            <ThumbnailMaker key={e.id} image={e} />
+            <ThumbnailMaker key={e.id} image={e} userTried={this.userTried} />
           ))}
         </div>
       </>
