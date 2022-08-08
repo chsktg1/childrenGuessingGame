@@ -260,7 +260,9 @@ class Game extends Component {
 
   componentDidMount() {
     let x = Math.floor(Math.random() * imagesList.length);
-    this.setState({ isSet: true, randomImage: x });
+    this.setState({ isSet: true, randomImage: x }, () => {
+      setTimeout(this.timer, 1000);
+    });
   }
 
   activeImages = () => {
@@ -314,15 +316,11 @@ class Game extends Component {
     const { activeTab, isSet, score, time } = this.state;
     var imagesToShow = this.activeImages();
 
-    {
-      this.alpha = setTimeout(this.timer, 1000);
-    }
-
     return (
       <>
         <div>
           <h1>Score :{score}</h1>
-          <p>Time Left: {time}</p>
+          {/* <p>Time Left: {time}</p> */}
         </div>
         {isSet && this.randomImage()}
         <div className="tabs-container">
