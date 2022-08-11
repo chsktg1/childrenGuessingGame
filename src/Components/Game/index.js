@@ -2,6 +2,8 @@ import { Component } from "react";
 
 import ThumbnailMaker from "../ThumbnailMaker";
 
+import Timer from "../Timer";
+
 import "./index.css";
 
 const tabsList = [
@@ -255,7 +257,6 @@ class Game extends Component {
     isTheGuessCorrect: false,
     isSet: false,
     score: 0,
-    time: 30,
   };
 
   componentDidMount() {
@@ -312,15 +313,20 @@ class Game extends Component {
     }
   };
 
+  gameOver = () => {
+    alert(`game completed, your score${this.state.score}`);
+    this.setState({ score: 0 });
+  };
+
   render() {
     const { activeTab, isSet, score, time } = this.state;
     var imagesToShow = this.activeImages();
 
     return (
       <>
-        <div>
+        <div className="header">
           <h1>Score :{score}</h1>
-          {/* <p>Time Left: {time}</p> */}
+          <Timer gameOver={this.gameOver} />
         </div>
         {isSet && this.randomImage()}
         <div className="tabs-container">
