@@ -298,6 +298,12 @@ class Game extends Component {
       let x = Math.floor(Math.random() * imagesList.length);
       newScore = newScore + 1;
       this.setState({ randomImage: x, score: newScore });
+    } else {
+      this.setState({ score: newScore - 1 });
+      var b = document.getElementById("mainContainer");
+      console.log(b);
+      b.classList.add("wrong-answer");
+      setTimeout(() => b.classList.remove("wrong-answer"), 850);
     }
   };
 
@@ -323,7 +329,7 @@ class Game extends Component {
     var imagesToShow = this.activeImages();
 
     return (
-      <>
+      <div id="mainContainer">
         <div className="header">
           <h1>Score :{score}</h1>
           <Timer gameOver={this.gameOver} />
@@ -354,7 +360,7 @@ class Game extends Component {
             <ThumbnailMaker key={e.id} image={e} userTried={this.userTried} />
           ))}
         </div>
-      </>
+      </div>
     );
   }
 }

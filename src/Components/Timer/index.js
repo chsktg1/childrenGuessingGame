@@ -14,6 +14,7 @@ class Timer extends Component {
       clearInterval(this.toClear);
       const { gameOver } = this.props;
       gameOver();
+      this.setState({ time: 30 });
     } else {
       this.setState({ time: time - 1 });
     }
